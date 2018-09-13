@@ -23,6 +23,15 @@ typedef unsigned int fbval_t;
 #define AFI		NULL
 #define AFB		NULL
 
+
+/* Whether to use a fallback font for missing characters */
+#define USE_FALLBACK 1
+
+/* fallback tinyfont files for regular, italic, and bold fonts */
+#define FFR		"/path/to/font.tf"
+#define FFI		NULL
+#define FFB		NULL
+
 /* foreground and background colors */
 #define FGCOLOR		COLOR0
 #define BGCOLOR		COLORF

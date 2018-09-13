@@ -19,6 +19,11 @@ int pad_init(void)
 		return 1;
 	}
 
+	if (USE_FALLBACK) {
+		if(pad_font(FFR, FFI, FFB, fb_fonts))
+			return 1;
+	}
+
 	rows = fb_rows() / fnrows;
 	cols = fb_cols() / fncols;
 	return 0;
@@ -105,8 +110,15 @@ static fbval_t *ch2fb(int fn, int c, int fg, int bg)
 		return NULL;
 	if ((fbbits = gc_get(c, fg, bg)))
 		return fbbits;
-	if (font_bitmap(fonts[fn], bits, c))
+	if (font_bitmap(fonts[fn], bits, c)) {
+		if(USE_FALLBACK) {
+			if(font_bitmap(fb_fonts[fn], bits, c))
+				return NULL;
+		}
+
 		return NULL;
+	}
+
 	fbbits = gc_put(c, fg, bg);
 	bmp2fb(fbbits, bits, fg & FN_C, bg & FN_C,
 		font_rows(fonts[fn]), font_cols(fonts[fn]));
