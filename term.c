@@ -385,6 +385,12 @@ void term_save(struct term *term)
 	term->lazy = lazy;
 }
 
+void term_signal(int sig)
+{
+	kill(term->pid, sig);
+
+	term_redraw(1);
+}
 /* redraw the screen; if all is zero, update changed lines only */
 void term_redraw(int all)
 {

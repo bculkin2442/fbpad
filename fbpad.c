@@ -194,6 +194,9 @@ static void directkey(void)
 		case CTRLKEY('q'):
 			exitit = 1;
 			return;
+		case CTRLKEY('w'):
+			term_signal(SIGTERM);
+			return;
 		case 's':
 			term_screenshot();
 			return;

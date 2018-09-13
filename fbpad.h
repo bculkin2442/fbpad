@@ -41,6 +41,7 @@ struct term {
 void term_load(struct term *term, int visible);
 void term_save(struct term *term);
 
+void term_signal(int);
 void term_read(void);
 void term_send(int c);
 void term_exec(char **args);
