@@ -50,6 +50,8 @@ void term_screenshot(void);
 void term_scrl(int pos);
 void term_redraw(int all);
 
+struct font;
+
 /* pad.c */
 #define FN_I		0x01000000	/* italic font */
 #define FN_B		0x02000000	/* bold font */
@@ -57,7 +59,8 @@ void term_redraw(int all);
 
 int pad_init(void);
 void pad_free(void);
-int pad_font(char *fr, char *fi, char *fb);
+int pad_font(char *fr, char *fi, char *fb, struct font *fontar[3]);
+void pad_font_swap();
 void pad_put(int ch, int r, int c, int fg, int bg);
 int pad_rows(void);
 int pad_cols(void);

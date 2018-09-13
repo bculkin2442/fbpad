@@ -18,6 +18,11 @@ typedef unsigned int fbval_t;
 #define FI		NULL
 #define FB		NULL
 
+/* alternate tinyfont files for regular, italic, and bold fonts */
+#define AFR		"/path/to/font.tf"
+#define AFI		NULL
+#define AFB		NULL
+
 /* foreground and background colors */
 #define FGCOLOR		COLOR0
 #define BGCOLOR		COLORF

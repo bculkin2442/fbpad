@@ -9,11 +9,16 @@
 static int rows, cols;
 static int fnrows, fncols;
 static struct font *fonts[3];
+static struct font *fb_fonts[3];
+static int altmode;
 
 int pad_init(void)
 {
-	if (pad_font(FR, FI, FB))
+	if (pad_font(FR, FI, FB, fonts)) {
+		altmode = 0;
 		return 1;
+	}
+
 	rows = fb_rows() / fnrows;
 	cols = fb_cols() / fncols;
 	return 0;
@@ -166,16 +171,33 @@ int pad_cols(void)
 	return cols;
 }
 
-int pad_font(char *fr, char *fi, char *fb)
+void pad_font_swap() {
+	int i;
+	for (i = 0; i < 3; i++)
+		if (fonts[i])
+			font_free(fonts[i]);
+
+	if(altmode == 0) {
+		pad_font(AFR, AFI, AFB, fonts);
+		altmode = 1;
+	} else {
+		pad_font(FR, FI, FB, fonts);
+		altmode = 0;
+	}
+
+	rows = fb_rows() / fnrows;
+	cols = fb_cols() / fncols;
+}
+int pad_font(char *fr, char *fi, char *fb, struct font *fontar[3])
 {
 	struct font *r = fr ? font_open(fr) : NULL;
 	if (!r)
 		return 1;
-	fonts[0] = r;
-	fonts[1] = fi ? font_open(fi) : NULL;
-	fonts[2] = fb ? font_open(fb) : NULL;
+	fontar[0] = r;
+	fontar[1] = fi ? font_open(fi) : NULL;
+	fontar[2] = fb ? font_open(fb) : NULL;
 	memset(gc_info, 0, sizeof(gc_info));
-	fnrows = font_rows(fonts[0]);
-	fncols = font_cols(fonts[0]);
+	fnrows = font_rows(fontar[0]);
+	fncols = font_cols(fontar[0]);
 	return 0;
 }

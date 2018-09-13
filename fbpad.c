@@ -210,6 +210,10 @@ static void directkey(void)
 		case CTRLKEY('o'):
 			taglock = 1 - taglock;
 			return;
+		case CTRLKEY('f'):
+			pad_font_swap();
+			term_redraw(1);
+			return;
 		case ',':
 			term_scrl(pad_rows() / 2);
 			return;
