@@ -141,7 +141,7 @@ static void listtags(void)
 			nt++;
 		pad_put(i == ctag ? '(' : ' ', r, c++, FGCOLOR, BGCOLOR);
 		if (TERMSNAP(i))
-			pad_put(tags[i], r, c++, !nt ? BGCOLOR : colors[nt], colors[0]);
+			pad_put(tags[i], r, c++, !nt ? FGCOLOR : colors[nt], COLOR1);
 		else
 			pad_put(tags[i], r, c++, colors[nt], BGCOLOR);
 		pad_put(i == ctag ? ')' : ' ', r, c++, FGCOLOR, BGCOLOR);
